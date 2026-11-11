@@ -1,16 +1,17 @@
 ﻿from pages.product_page import ProductPage
 from playwright.sync_api import expect
 
-def test_guest_can_add_to_cart(authenticated_page):
+def test_guest_can_add_to_cart(fast_authenticated_page):
     # 1. Navigate directly to the specific product page (Sauce Labs Backpack)
-    authenticated_page.goto("https://www.saucedemo.com/inventory-item.html?id=4")
+    fast_authenticated_page.goto("https://www.saucedemo.com/inventory-item.html?id=4")
     
     # 2. Use our Page Object to add to cart
-    product = ProductPage(authenticated_page)
+    product = ProductPage(fast_authenticated_page)
     product.add_to_cart()
     
     # 3. Verify the cart badge shows 1
-    expect(authenticated_page.locator(".shopping_cart_badge")).to_have_text("1")
+    expect(fast_authenticated_page.locator(".shopping_cart_badge")).to_have_text("1")
+
 def test_locked_out_user_cannot_login(page):
     # 1. Go to the login page
     page.goto("https://www.saucedemo.com/")
